@@ -11,11 +11,31 @@ export function useRange(range: Range) {
 
 export function setCursorAfter(range: Range, node: Node) {
   range.setStartAfter(node)
-  range.setEndAfter(node)
+  range.collapse(true)
 }
 
 export function insertNode(range: Range, node: Node) {
   range.insertNode(node)
   setCursorAfter(range, node)
   useRange(range)
+}
+
+export function setDataset(el: HTMLElement, data: object) {
+  Object.entries(data).forEach(([key, value]) => {
+    el.dataset[key] = value
+  })
+}
+
+export function moveCursorToStart(el: HTMLElement) {
+  const range = getRange()
+
+  if (el.firstChild) range.setStartBefore(el.firstChild)
+  else el.focus()
+}
+
+export function moveCursorToEnd(el: HTMLElement) {
+  const range = getRange()
+
+  if (el.lastChild) range.setStartAfter(el.lastChild)
+  else el.focus()
 }
