@@ -1,6 +1,7 @@
 {
   "name": "pure-editor",
   "version": "0.0.1",
+  "description": "a pure text editor for chat app textare or comment editor or something like that",
   "main": "dist/index.js",
   "scripts": {
     "start": "vite",
