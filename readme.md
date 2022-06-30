@@ -43,9 +43,9 @@ const editor =  new PureEditor(target, config)
 
 ### target
 
-target should be html pre element to make `\n` renderer normal.
+target should be html pre element to make `\n` rendered normally.
 
-why not generate it inside ? for to leave the full ability for you to control it, for example, you can offer extra features directly:
+why not generate it inside ? to leave the full ability for you to control it, for example, you can offer extra features directly:
 
 ```
 colorBtn.onclick = color => pre.style.color = color
