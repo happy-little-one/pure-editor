@@ -1,6 +1,5 @@
 {
-  "name": "editor",
-  "private": true,
+  "name": "pure-editor",
   "version": "0.0.0",
   "scripts": {
     "start": "vite",
@@ -9,5 +8,6 @@
   },
   "devDependencies": {
     "vite": "^2.9.9"
-  }
+  },
+  "keywords": ["editor", "text-editor"]
 }
