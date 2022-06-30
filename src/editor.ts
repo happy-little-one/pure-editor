@@ -8,11 +8,36 @@ import {
 
 import { AtList } from './at-list'
 
+export interface Config {
+  submit?: {
+    will(e: KeyboardEvent): boolean
+    done(values: Array<string | object>): void
+  }
+  at: {
+    find(keyword: string): Promise<object[]>
+    render: {
+      list(): HTMLElement
+      item(user: object): HTMLElement
+    }
+  }
+  emoji: {
+    render(emoji: object): HTMLElement
+  }
+  file: {
+    upload(file: File): Promise<object>
+    render(file: object): HTMLElement
+  }
+  reply: {
+    render(reply: object): HTMLElement
+  }
+}
+
 export default class Editor {
   target: HTMLPreElement
   config: Config
 
   constructor(target: HTMLPreElement, config: Config) {
+    target.contentEditable = 'true'
     this.target = target
     this.config = config
 
@@ -29,9 +54,10 @@ export default class Editor {
   }
 
   insertEmoji(emoji: object) {
-    moveCursorToEnd(this.target)
-    const range = getRange()
+    const anchor = getSelection()?.anchorNode
+    if (!(anchor && this.target.contains(anchor))) moveCursorToEnd(this.target)
 
+    const range = getRange()
     const node = this.config.emoji.render(emoji)
     setDataset(node, emoji)
     insertNode(range, node)
@@ -61,8 +87,6 @@ export default class Editor {
   }
 
   async insertFile(file: File) {
-    this.target.focus()
-
     const { upload, render } = this.config.file
     const fileData = await upload(file)
     const node = render(fileData)
@@ -75,13 +99,19 @@ export default class Editor {
     range.insertNode(document.createTextNode(' '))
   }
 
-  getValues() {
-    return Array.from(this.target.childNodes)
-      .filter(it => it.textContent && it.textContent !== ' ')
+  submit() {
+    const values = Array.from(this.target.childNodes)
+      .filter(({ nodeName, textContent }) => {
+        if (nodeName !== '#text') return true
+        return textContent?.trim()
+      })
       .map(it => {
         const { nodeName, dataset, textContent } = it as HTMLElement
         return nodeName === '#text' ? textContent : Object.assign({}, dataset)
       }) as Array<string | object>
+
+    this.target.innerHTML = ''
+    return values
   }
 
   private handlePaste(e: ClipboardEvent) {
@@ -99,10 +129,7 @@ export default class Editor {
       e.preventDefault()
       const { submit } = this.config
 
-      if (submit?.will(e)) {
-        this.target.innerHTML = ''
-        return submit.done(this.getValues())
-      }
+      if (submit?.will(e)) return submit.done(this.submit())
 
       const range = getRange()
       insertNode(range, document.createTextNode('\n'))

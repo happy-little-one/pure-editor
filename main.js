@@ -4,8 +4,8 @@ const editor = new Editor(document.getElementById('app'), {
   at: {
     async find(keyword) {
       return [
-        { type: 'user', id: 1, name: `${keyword}foo` },
-        { type: 'user', id: 2, name: `${keyword}bar` },
+        { type: 'user', id: 1, name: `${keyword}Susan` },
+        { type: 'user', id: 2, name: `${keyword}Catherine` },
       ]
     },
     render: {
@@ -26,7 +26,8 @@ const editor = new Editor(document.getElementById('app'), {
     render(emoji) {
       const img = document.createElement('img')
       img.className = 'emoji'
-      img.src = '//via.placeholder.com/40'
+      img.src =
+        'https://cdn.pixabay.com/photo/2020/12/27/20/25/smile-5865209_640.png'
       return img
     },
   },
@@ -58,7 +59,7 @@ const editor = new Editor(document.getElementById('app'), {
   },
 })
 
-emoji.onclick = () => editor.insertEmoji({ type: 'emoji', name: '微笑' })
+emoji.onclick = () => editor.insertEmoji({ type: 'emoji', name: 'smile' })
 reply.onclick = () => editor.insertReply({ type: 'reply', to: 'foo' })
 file.onclick = () => editor.insertFile()
-submit.onclick = () => console.log(editor.getValues())
+submit.onclick = () => console.log(editor.submit())

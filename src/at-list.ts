@@ -1,13 +1,17 @@
 import { getRange, insertNode, setDataset } from './utils'
 
+import { Config } from './editor'
+
 export class AtList {
   container: HTMLElement
-  config: AtConfig
+  config: Config['at']
 
-  constructor(target: HTMLPreElement, config: AtConfig) {
+  constructor(target: HTMLPreElement, config: Config['at']) {
     const { render } = config
 
     this.container = render.list()
+    this.container.style.display = 'none'
+    this.container.style.position = 'fixed'
     this.container.style.transform = 'translateY(-100%)'
     this.config = config
 
@@ -40,8 +44,7 @@ export class AtList {
     const range = getRange()
     const { x, y } = range.getBoundingClientRect()
 
-    const { offsetWidth, offsetHeight } = this.container
-    console.log(offsetHeight)
+    const { offsetWidth } = this.container
     const maxLeft = innerWidth - offsetWidth - 8
     const left = x + offsetWidth > maxLeft ? maxLeft : x
 

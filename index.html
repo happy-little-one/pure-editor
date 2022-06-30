@@ -6,22 +6,35 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Vite App</title>
   <style>
+    :root {
+      --border: #d8d8d8;
+      --bg: #f5f5f5;
+    }
+
+    body {
+      padding-top: 100px;
+    }
+
     #app {
       height: 200px;
+      margin: 0;
+      padding: 8px;
+      box-sizing: border-box;
       white-space: pre-wrap;
-      border: solid 1px #d8d8d8;
+      border: solid 1px var(--border);
+      border-radius: 4px;
       outline: none;
-      font-size: 16px;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      font-size: 18px;
+      font-family: system-ui;
       overflow-y: auto;
     }
 
     .at-list {
-      position: absolute;
       width: 120px;
-      display: none;
-      border: solid 1px #d8d8d8;
+      border: solid 1px var(--border);
+      border-radius: 4px;
       background: #fff;
+      box-shadow: 0 3px 6px -4px rgba(250, 169, 169, 0.12), 0 6px 16px 0 rgba(0, 0, 0, 0.08), 0 9px 28px 8px rgba(0, 0, 0, 0.05);
     }
 
     .at-item {
@@ -29,29 +42,34 @@
     }
 
     .at-item:hover {
-      background: #f5f5f5;
+      background: var(--bg);
     }
 
     .emoji {
-      width: 25px;
-      height: 25px;
+      display: inline-block;
+      width: 30px;
+      height: 30px;
+      margin: 0 2px;
       border-radius: 50%;
+      vertical-align: middle;
     }
 
     .block {
       padding: 8px 16px;
-      background: #f5f5f5;
+      background: var(--bg);
       border-radius: 4px;
     }
   </style>
 </head>
 
-<body style="padding-top: 500px;">
-  <button id="emoji">表情</button>
-  <button id="reply">回复</button>
-  <button id="file">文件</button>
-  <button id="submit">提交</button>
-  <pre id="app" contenteditable></pre>
+<body>
+  <div style="text-align: right; margin-bottom: 4px;">
+    <button id="emoji">emoji</button>
+    <button id="reply">replay</button>
+    <button id="file">file</button>
+    <button id="submit">submit</button>
+  </div>
+  <pre id="app"></pre>
   <script type="module" src="/main.js"></script>
 </body>
 

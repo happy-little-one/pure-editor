@@ -28,14 +28,12 @@ export function setDataset(el: HTMLElement, data: object) {
 
 export function moveCursorToStart(el: HTMLElement) {
   const range = getRange()
-
   if (el.firstChild) range.setStartBefore(el.firstChild)
   else el.focus()
 }
 
 export function moveCursorToEnd(el: HTMLElement) {
   const range = getRange()
-
   if (el.lastChild) range.setStartAfter(el.lastChild)
   else el.focus()
 }
