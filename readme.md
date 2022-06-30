@@ -71,7 +71,7 @@ export interface Config {
   }
   file: {
     upload(file: File): Promise<object>
-    render(file: object): HTMLElement
+    render(fileResult: object): HTMLElement
   }
   reply: {
     render(reply: object): HTMLElement
@@ -83,33 +83,33 @@ export interface Config {
 
 提交触发配置，如果你不需要可以不填，通过实例方法`submit`来获取结果。
 
-- `will(e: KeyboardEvent): boolean`: 根据`KeyboardEvent`对象来判断是否触发提交， 返回`true`就会触发提交，如：`judge: e => e.key === 'Enter'`.
+- `will(e: KeyboardEvent): boolean`: 根据`KeyboardEvent`对象来判断是否触发提交， 返回`true`就会触发提交，如：`will: e => e.key === 'Enter'`.
 
 - `done(values: Array<string | object>): void`: 提交的回调函数， 如：`done: cosole.log`
 
 ### at
 
-- `find(keyword: string): Promise<object[]>`: 当用户输入`@`时用于模糊查找用户列表的函数，因为用户可能有很多，如果你不需要此功能可以直接返回一个静态列表, 如：`async find: () => [user}, user2]`。
+- `find(keyword: string): Promise<object[]>`: 当用户输入`@`时用于模糊查找用户列表的函数，因为用户可能有很多，如果你不需要此功能可以直接返回一个静态列表, 如：`async find: () => [user1, user2]`。
 
- > PureEditor 并不关心返回 user 的数据结构，如果`find`函数返回的格式是`Array<{type:'user', id: string, name:string}>`, 那么`@某人`的结果将会是`{type:'user',id:'1', name: 'join'}`。
+ > PureEditor 并不关心返回 user 的数据结构，只是把数据原样返回，比如，如果`find`函数返回的是`[{type:'user',id:'1', name: 'Susan'}]`, 那么`@Susan`的结果将会是`{type:'user',id:'1', name: 'Susan'}`。
 
-- `render.list`: at 时，备选用户列表的渲染函数，需返回一个`HTMLELement`, 这是一个悬浮列表，内部会设置`position: fixed`，你需要做的是设置的外观以及给一个固定宽度，如：`width: 120px`
+- `render.list`: 备选用户列表的渲染函数, 这是一个悬浮列表，内部会设置`position: fixed`，你需要做的是设置的外观以及给一个固定宽度，如：`width: 120px`
 
 - `render.item`： 备选用户列表 item 的渲染函数，你需要用户名称设为它的`innerTEXT`。
 
 ### emoji
 
-- `render(emoji: object): HTMLElement`: 输入框里渲染表情的函数，当调用 PureEditor 的实例方法`inserEmoji(emoji)`时，会用此函数渲染一个表情到输入框内。emoji 的结构和 user 一样，完全由你来定，会在结果中原样返回。
+- `render(emoji: object): HTMLElement`: 表情的渲染函数，当调用实例方法`inserEmoji(emoji)`时，会用此函数渲染一个表情到输入框内。emoji 的结构和 user 一样，完全由你来定，会在结果中原样返回。
 
 ### file
 
-- `upload(file: File): Promise<object>`: 当用户粘贴一个图片，或者调用 PureEditor 的实例方法`insertFile`时，会调用此函数上传，函数返回值的结构完全有你来定，提交时会原样返回。
+- `upload(file: File): Promise<object>`: 当用户粘贴一个图片，或者调用实例方法`insertFile(file)`时，会调用此函数上传。
 
-- `render(file: object): HTMLElement`: file 的渲染函数，入参就是`upload`的返回值，文件总是插入到输入框底部。
+- `render(fileResult: object): HTMLElement`: 当上传完毕，PureEditor 会用上传返回的数据调用此函数，并把结果插入到输入框中，文件总是插入到输入框底部。
 
 ### reply
 
-- `render(reply: object): HTMLElement`: 回复的渲染函数，当调用 PureEditor 的实例方法`insertReply`时，会调用此函数把返回的 element 插入到输入框顶部，一次提交中只能有一条回复，插入新的回复会替换调老的。
+- `render(reply: object): HTMLElement`: 回复的渲染函数，当调用实例方法`insertReply(reply)`时，会调用此函数并把返回结果插入到输入框顶部，一次提交中只能有一条回复，插入新的回复会替换调老的。
 
 # 实例方法
 
@@ -165,7 +165,7 @@ const editor = new Editor(document.getElementById('app'), {
         contentType: 'zip',
       }
     },
-    render(file) {
+    render(fileResult) {
       const div = document.createElement('div')
       div.innerText = 'a file...'
       div.className = 'block'
