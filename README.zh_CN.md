@@ -1,4 +1,4 @@
-# PureEditor
+# PureEditor | [English Document](/README.md)
 
 ![example](https://user-images.githubusercontent.com/13190639/176615872-9c2ec97f-a309-4665-b56a-47f7e7c090aa.png)
 
