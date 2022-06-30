@@ -29,6 +29,8 @@ PureEditor 的 values 是一个完全结构化，信息完整的数据，你可�
 npm i 'pure-editor'
 ```
 
+只有三个文件，如果你嫌麻烦，也可以直接 copy 文件。
+
 # 使用
 
 ```
@@ -36,8 +38,6 @@ import Editor from 'pure-editor'
 
 const editor =  new PureEditor(target, config)
 ```
-
-# 参数说明
 
 ## target
 
@@ -111,14 +111,14 @@ export interface Config {
 
 - `render(reply: object): HTMLElement`: 回复的渲染函数，当调用实例方法`insertReply(reply)`时，会调用此函数并把返回结果插入到输入框顶部，一次提交中只能有一条回复，插入新的回复会替换调老的。
 
-# 实例方法
+## 实例方法
 
 - `insertEmoji(emojiData)`: 插入表情
 - `insertFile(file)`: 插入文件
 - `insertReply(replyData)`: 插入回复
 - `submit`: 返回输入结果并清空输入框
 
-# 完整示例
+## 完整示例
 ```
 const editor = new Editor(document.getElementById('app'), {
   at: {
@@ -180,7 +180,7 @@ const editor = new Editor(document.getElementById('app'), {
 
 emoji.onclick = () => editor.insertEmoji({ type: 'emoji', name: 'smile' })
 reply.onclick = () => editor.insertReply({ type: 'reply', to: 'foo' })
-file.onclick = () => editor.insertFile()
+file.onclick = () => editor.insertFile({name: 'file.zip'})
 submit.onclick = () => console.log(editor.submit())
 ```
 

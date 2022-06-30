@@ -1,13 +1,14 @@
 {
   "name": "pure-editor",
-  "version": "0.0.0",
+  "version": "0.0.1",
+  "main": "dist/index.js",
   "scripts": {
     "start": "vite",
-    "build": "vite build",
-    "preview": "vite preview"
+    "build": "vite build"
   },
   "devDependencies": {
     "vite": "^2.9.9"
   },
-  "keywords": ["editor", "text-editor"]
+  "keywords": ["editor", "text-editor"],
+  "maintainers": ["happy-little-one"]
 }
