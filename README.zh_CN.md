@@ -2,7 +2,6 @@
 
 ![example](https://user-images.githubusercontent.com/13190639/176615872-9c2ec97f-a309-4665-b56a-47f7e7c090aa.png)
 
-
 PureEditor 是一个纯文本的编辑器，所谓纯文本是指除了内置组件，其他内容都是纯字符。因此它适用于聊天输入框，评论框等类似场景。
 
 - 轻量，纯 dom 操作，源码 200 行左右，不依赖任何框架和库。
@@ -91,11 +90,11 @@ export interface Config {
 
 - `find(keyword: string): Promise<object[]>`: 当用户输入`@`时用于模糊查找用户列表的函数，因为用户可能有很多，如果你不需要此功能可以直接返回一个静态列表, 如：`async find: () => [user1, user2]`。
 
- > PureEditor 并不关心返回 user 的数据结构，只是把数据原样返回，比如，如果`find`函数返回的是`[{type:'user',id:'1', name: 'Susan'}]`, 那么`@Susan`的结果将会是`{type:'user',id:'1', name: 'Susan'}`。
-
 - `render.list`: 备选用户列表的渲染函数, 这是一个悬浮列表，内部会设置`position: fixed`，你需要做的是设置的外观以及给一个固定宽度，如：`width: 120px`
 
 - `render.item`： 备选用户列表 item 的渲染函数，你需要用户名称设为它的`innerTEXT`。
+
+> PureEditor 并不关心返回 user 的数据结构，只是把数据原样返回，比如，如果`find`函数返回的是`[{type:'user',id:'1', name: 'Susan'}]`, 那么`@Susan`的结果将会是`{type:'user',id:'1', name: 'Susan'}`。
 
 ### emoji
 
@@ -119,6 +118,7 @@ export interface Config {
 - `submit`: 返回输入结果并清空输入框
 
 ## 完整示例
+
 ```
 const editor = new Editor(document.getElementById('app'), {
   at: {
