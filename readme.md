@@ -1,5 +1,8 @@
 # PureEditor
 
+![example](https://user-images.githubusercontent.com/13190639/176615872-9c2ec97f-a309-4665-b56a-47f7e7c090aa.png)
+
+
 PureEditor 是一个纯文本的编辑器，所谓纯文本是指除了内置组件，其他内容都是纯字符。因此它适用于聊天输入框，评论框等类似场景。
 
 - 轻量，纯 dom 操作，源码 200 行左右，不依赖任何框架和库。
