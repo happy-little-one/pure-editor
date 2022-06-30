@@ -88,7 +88,7 @@ export interface Config {
 
 - `find(keyword: string): Promise<object[]>`: 当用户输入`@`时用于模糊查找用户列表的函数，因为用户可能有很多，如果你不需要此功能可以直接返回一个静态列表, 如：`async find: () => [user}, user2]`。
 
-> PureEditor 并不关心返回 user 的数据结构，如果`find`函数返回的格式是`Array<{type:'user', id: string, name:string}>`, 那么`@某人`的结果将会是`{type:'user',id:'1', name: 'join'}`。
+ > PureEditor 并不关心返回 user 的数据结构，如果`find`函数返回的格式是`Array<{type:'user', id: string, name:string}>`, 那么`@某人`的结果将会是`{type:'user',id:'1', name: 'join'}`。
 
 - `render.list`: at 时，备选用户列表的渲染函数，需返回一个`HTMLELement`, 这是一个悬浮列表，内部会设置`position: fixed`，你需要做的是设置的外观以及给一个固定宽度，如：`width: 120px`
 
