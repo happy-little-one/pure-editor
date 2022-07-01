@@ -23,7 +23,16 @@ this result of PureEditor is structured,fully-messaged array, you can translate 
 ]
 ```
 
-the data format of the item(except text) is upto you, ervey entity's data format will be consistent with the incoming. but it's recommanded every entity include a `type` propertity for distinguish them.
+the data format of the item(except text) is upto you, ervey entity's data format will be consistent with the incoming. but it's recommanded every entity include a `type` propertity for distinguish them. the machanism is sipmle, PureEditor just set the dataset of the element with the data you give, and get the dataset when submit:
+
+```
+// render flow
+render(data) --> element -> element.dataset = data --> append(element)
+
+// parse flow
+element --> element.nodeName === '#text' ? element.textContent : element.dataset
+
+```
 
 ## Install
 

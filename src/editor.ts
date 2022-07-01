@@ -54,6 +54,7 @@ export default class Editor {
   }
 
   insertEmoji(emoji: object) {
+    // if target is not focused, move cursor to the end
     const anchor = getSelection()?.anchorNode
     if (!(anchor && this.target.contains(anchor))) moveCursorToEnd(this.target)
 
@@ -75,6 +76,7 @@ export default class Editor {
     article.contentEditable = 'false'
     setDataset(article, reply)
 
+    // if already has a reply node, remove it
     moveCursorToStart(this.target)
     if (this.target.firstChild?.nodeName === 'ARTICLE') {
       range.setEndAfter(this.target.firstChild)
@@ -100,17 +102,8 @@ export default class Editor {
   }
 
   submit() {
-    const values = Array.from(this.target.childNodes)
-      .filter(({ nodeName, textContent }) => {
-        if (nodeName !== '#text') return true
-        return textContent?.trim()
-      })
-      .map(it => {
-        const { nodeName, dataset, textContent } = it as HTMLElement
-        return nodeName === '#text' ? textContent : Object.assign({}, dataset)
-      }) as Array<string | object>
-
-    this.target.innerHTML = ''
+    const values = this.getValues()
+    if (values) this.target.innerHTML = ''
     return values
   }
 
@@ -124,13 +117,32 @@ export default class Editor {
     if (item) return item.getAsString(text => this.insertText(text))
   }
 
+  private getValues() {
+    return Array.from(this.target.childNodes)
+      .filter(({ nodeName, textContent }) => {
+        if (nodeName !== '#text') return true
+        return textContent?.trim()
+      })
+      .map(it => {
+        const { nodeName, dataset, textContent } = it as HTMLElement
+        return nodeName === '#text' ? textContent : Object.assign({}, dataset)
+      }) as Array<string | object>
+  }
+
   private handleKeyDown(e: KeyboardEvent) {
+    const { submit } = this.config
+
+    if (submit?.will(e)) {
+      const values = this.getValues()
+      if (values) {
+        this.target.innerHTML = ''
+        e.preventDefault()
+        return submit.done(values)
+      }
+    }
+
     if (e.key === 'Enter') {
       e.preventDefault()
-      const { submit } = this.config
-
-      if (submit?.will(e)) return submit.done(this.submit())
-
       const range = getRange()
       insertNode(range, document.createTextNode('\n'))
       range.insertNode(document.createTextNode(' '))
