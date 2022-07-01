@@ -1,4 +1,5 @@
-// get the range of current selection, one slection can only has one range except firefox
+// get the range of current selection, one selection can only has one range except firefox,
+// so you can assume they are equivalent.
 export function getRange() {
   return getSelection()?.getRangeAt(0) as Range
 }

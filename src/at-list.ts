@@ -25,10 +25,10 @@ export class AtList {
     if (range.endContainer.nodeName !== '#text') return false
 
     const lastText = range.endContainer.textContent as string
-    const avilable = /@.{0,6}$/.test(lastText)
+    const avilable = /@.{0,8}$/.test(lastText)
 
     if (avilable) {
-      let keyword = (/@(.{0,6})$/.exec(lastText) || ' ')[1]
+      let keyword = (/@(.{0,8})$/.exec(lastText) || ' ')[1]
       keyword = keyword.replace(/@/g, '')
 
       const users = await this.config.find(keyword)
@@ -72,7 +72,7 @@ export class AtList {
     users.forEach(user => {
       const item = this.config.render.item(user)
       item.onclick = e => {
-        const { innerText } = e.target as HTMLDivElement
+        const { innerText } = e.target as HTMLElement
         this.insertUser(innerText, user, range)
       }
       this.container.appendChild(item)
