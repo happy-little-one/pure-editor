@@ -65,6 +65,20 @@ export default class Editor {
     this.target.focus()
   }
 
+  async insertFile(file: File) {
+    const { upload, render } = this.config.file
+    const fileData = await upload(file)
+    const node = render(fileData)
+    node.contentEditable = 'false'
+    setDataset(node, fileData)
+
+    const range = getRange()
+    moveCursorToEnd(this.target)
+    insertNode(range, node)
+    // you always need to insert a whitespace after insert a component to make the cursor visible again, I don't know why...
+    range.insertNode(document.createTextNode(' '))
+  }
+
   insertReply(reply: object) {
     this.target.focus()
     const isEmpty = this.target.childNodes.length === 0
@@ -88,22 +102,9 @@ export default class Editor {
     else moveCursorToEnd(this.target)
   }
 
-  async insertFile(file: File) {
-    const { upload, render } = this.config.file
-    const fileData = await upload(file)
-    const node = render(fileData)
-    node.contentEditable = 'false'
-    setDataset(node, fileData)
-
-    const range = getRange()
-    moveCursorToEnd(this.target)
-    insertNode(range, node)
-    range.insertNode(document.createTextNode(' '))
-  }
-
   submit() {
     const values = this.getValues()
-    if (values) this.target.innerHTML = ''
+    if (values.length) this.target.innerHTML = ''
     return values
   }
 
@@ -134,14 +135,13 @@ export default class Editor {
 
     if (submit?.will(e)) {
       const values = this.getValues()
-      if (values) {
+      if (values.length) {
         this.target.innerHTML = ''
-        e.preventDefault()
         return submit.done(values)
       }
     }
 
-    if (e.key === 'Enter') {
+    if (e.key === 'Enter' && !submit?.will(e)) {
       e.preventDefault()
       const range = getRange()
       insertNode(range, document.createTextNode('\n'))

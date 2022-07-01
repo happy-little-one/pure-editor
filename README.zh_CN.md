@@ -20,7 +20,7 @@ PureEditor 的 values 是一个完全结构化，信息完整的数据，你可�
 ]
 ```
 
-数组里除文字外的每一个的构完全是由你传入的，PureEditor 不对结构做任何要求，提交的时候会把数据原样返回给你，建议都有个`type`字段，这样方便你做区分。PureEditor 机制非常简单，渲染时把 data 设置为 render 返回的 node 上，提交时再把 data 返回
+数组里除文字外的每一个的构完全是由你传入的，PureEditor 不对结构做任何要求，提交的时候会把数据原样返回给你，建议都有个`type`字段，这样方便你做区分。PureEditor 机制非常简单，渲染时把 data 设置为元素的 dataset，提交时再读取 dataset 并返回
 
 ```
 // render flow
