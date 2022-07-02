@@ -6,24 +6,24 @@ PureEditor is pure text editor, 'pure' means the childNodes of the editor are on
 
 - light-weight, only 200 lines code, without any dependences .
 
-- fully featured, support @, emoji, picture, file, link...
+- fully featured, support @, user fuzzy finding, emoji, picture, file, link...
 
 - 100% customizable, every parts of ui accept a render function.
 
-- 0 constraints, PureEditor has no contraints for data format, you can use it in any system without any adaptation codes.
+- 0 constraints, PureEditor has no contraints for data format, you can use it in any system without adaptation codes.
 
-this result of PureEditor is structured,fully-messaged array, you can translate it to anything you want(html, template string), this is a standard example:
+this result of PureEditor is structured, fully-messaged array, you can translate it to anything you want(html, template string), this is a standard example:
 
 ```
 [
-  'I send a emoji',
+  'I send a',
   {type: 'emoji', name: 'smile'},
   'and will',
   {type: 'at', name: 'lucy'}
 ]
 ```
 
-the data format of the item(except text) is upto you, ervey entity's data format will be consistent with the incoming(but it's recommanded every entity include a `type` propertity for distinguish them). the machanism is simple, PureEditor just set the element's dataset with the data you give, and return the dataset of it to you when submit:
+the data format of the item(except text) is upto you, ervey entity's data format will be consistent with the incoming(it's recommanded every entity include a `type` propertity for distinguish them). the machanism is simple, PureEditor just set the element's dataset with the data you give, and return the dataset of it to you when submit:
 
 ```
 // render flow
@@ -198,4 +198,4 @@ submit.onclick = () => console.log(editor.submit())
 
 ## Attention
 
-PureEditor has not a toolbar and any default ui, you should provide all the render functions, this is for leave the full ability to you to controll them(or just because I'm lazy?). any thing I may help,submit an issue.
+PureEditor has no toolbar and any default ui, you should give it every render function, this is for leave the full ability to you to controll them(or just because I'm lazy?). any thing I may help, submit an issue.

@@ -109,17 +109,7 @@ export default class Editor {
     return values
   }
 
-  private handlePaste(e: ClipboardEvent) {
-    e.preventDefault()
-
-    const file = e.clipboardData?.files[0] as File
-    if (file?.type.includes('image')) return this.insertFile(file)
-
-    const item = e.clipboardData?.items[0]
-    if (item) return item.getAsString(text => this.insertText(text))
-  }
-
-  private getValues() {
+  getValues() {
     return Array.from(this.target.childNodes)
       .filter(({ nodeName, textContent }) => {
         if (nodeName !== '#text') return true
@@ -129,6 +119,16 @@ export default class Editor {
         const { nodeName, dataset, textContent } = it as HTMLElement
         return nodeName === '#text' ? textContent : Object.assign({}, dataset)
       }) as Array<string | object>
+  }
+
+  private handlePaste(e: ClipboardEvent) {
+    e.preventDefault()
+
+    const file = e.clipboardData?.files[0] as File
+    if (file?.type.includes('image')) return this.insertFile(file)
+
+    const item = e.clipboardData?.items[0]
+    if (item) return item.getAsString(text => this.insertText(text))
   }
 
   private handleKeyDown(e: KeyboardEvent) {
