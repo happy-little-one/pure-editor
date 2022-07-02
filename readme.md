@@ -196,7 +196,7 @@ file.onclick = () => editor.insertFile({name: 'file.zip'})
 submit.onclick = () => console.log(editor.submit())
 ```
 
-> I konw it looks a little complecate, I recommed you implement features one by one, for example start with emoji, ofter you implement it, you will understand clearly the machanism.
+> I konw it looks a little complecate, I recommed you implement features one by one, for example start with emoji, ofter you implement it, you will understand the machanism clearly.
 
 ## Attention
 
