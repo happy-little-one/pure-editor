@@ -125,6 +125,7 @@ export interface Config {
 - `insertFile(file)`: 插入文件
 - `insertReply(replyData)`: 插入回复
 - `submit`: 返回输入结果并清空输入框
+- `getValues`: submit 方法会清空输入框，不方便做调试，这是函数只返回结果
 
 ## 完整示例
 
