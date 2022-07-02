@@ -10,6 +10,10 @@
   "devDependencies": {
     "vite": "^2.9.9"
   },
-  "keywords": ["editor", "text-editor"],
-  "maintainers": ["happy-little-one"]
+  "keywords": ["javascript", "chat box", "comment box", "editor", "text-editor"],
+  "maintainers": ["littleone"],
+  "repository": {
+    "url": "https://github.com/happy-little-one/pure-editor"
+  },
+  "homepage": "https://github.com/happy-little-one/pure-editor"
 }
