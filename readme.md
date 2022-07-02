@@ -12,7 +12,7 @@ PureEditor is pure text editor, 'pure' means the childNodes of the editor are on
 
 - 0 constraints, PureEditor has no contraints for data format, you can use it in any system without any adaptation codes.
 
-this result of PureEditor is structured,fully-messaged array, you can translate it to anything you want(html, template string), this is a standard one:
+this result of PureEditor is structured,fully-messaged array, you can translate it to anything you want(html, template string), this is a standard example:
 
 ```
 [
@@ -23,7 +23,7 @@ this result of PureEditor is structured,fully-messaged array, you can translate 
 ]
 ```
 
-the data format of the item(except text) is upto you, ervey entity's data format will be consistent with the incoming. but it's recommanded every entity include a `type` propertity for distinguish them. the machanism is sipmle, PureEditor just set the element's dataset with the data you give, and return the dataset of it when submit:
+the data format of the item(except text) is upto you, ervey entity's data format will be consistent with the incoming(but it's recommanded every entity include a `type` propertity for distinguish them). the machanism is simple, PureEditor just set the element's dataset with the data you give, and return the dataset of it to you when submit:
 
 ```
 // render flow
@@ -52,9 +52,9 @@ const editor =  new PureEditor(target, config)
 
 ### target
 
-target should be html pre element to make `\n` rendered normally.
+target should be html pre element to make `\n` and series blank spaceies rendered normally.
 
-why not generate it inside ? to leave the full ability for you to control it, for example, you can offer extra features directly:
+why not generate it internally ? to leave the full ability for you to control it, for example, you can offer extra features directly:
 
 ```
 colorBtn.onclick = color => pre.style.color = color
@@ -65,7 +65,6 @@ fontBtn.onclick = fontFamily => pre.style.fontFamily = fontFamily
 
 ```
 export interface Config {
-
   submit?: {
     will(e: KeyboardEvent): boolean
     done(values: Array<string | object>): void
@@ -92,7 +91,7 @@ export interface Config {
 
 #### submit
 
-this submit trigger setting, if you needn't this, just ignore it and get the result by call the instance method `submit`
+this submit trigger setting, if you needn't this, just ignore it and get the result by the instance method `submit`
 
 - `will(e: KeyboardEvent): boolean`: if it return true, PureEditor will trigger submit immediately. example: `will: e => e.key === 'Enter'`
 
@@ -100,13 +99,13 @@ this submit trigger setting, if you needn't this, just ignore it and get the res
 
 #### at
 
-- `find(keyword: string): Promise<object[]>`: the fuzzy finding function of users, will be triggered when people input `@`. why it is aync? for users may be thousands. if you needn't this, just return a sync list. for example: `async find: () => [user1, user2]`.
+- `find(keyword: string): Promise<object[]>`: the fuzzy finding function of users, will be triggered when people input `@`. why is it aync? for users may be thousands. if you needn't this, just return a sync list. for example: `async find: () => [user1, user2]`.
 
 - `render.list(): HTMLElement`: the float user list , PureEditor will set it's position be `fixed`, all you need is set it's style, be sure to give it a specific width, example: `width: 120px`.
 
 - `render.item(user):HTMLElement`: then render function of user, then element will be appended to the list, you should set it's `innerText` to be the user's name .
 
-> PureEditor does not care what the user's format is, it just return the _same_ format as it is. for example, if the find function return the value `[{type:'user',id:'1', name: 'Susan'}]`, the item in the result will be `{type:'user',id:'1', name: 'Susan'}` if people @ Susan. other entities follow the same pattern.
+> PureEditor does not care what the user's format is, it just return the **same** format as it is. for example, if the find function return the value `[{type:'user',id:'1', name: 'Susan'}]`, the item in the result will be `{type:'user',id:'1', name: 'Susan'}` if people @ Susan. other entities follow the same pattern.
 
 #### emoji
 
@@ -116,7 +115,7 @@ this submit trigger setting, if you needn't this, just ignore it and get the res
 
 - `upload(file: File): Promise<object>`: when paste a picture, or when the instance method `insertFile` be called, PureEditor will call this function to upload the file.
 
-- `render(fileResult: object): HTMLElement`: after upload, PureEditor will call this function with the return value of upload,and then insert the return element to end of the box .
+- `render(fileResult: object): HTMLElement`: after upload, PureEditor will call this function with the upload result, and then insert the return element to end of the box .
 
 #### reply
 
@@ -128,6 +127,7 @@ this submit trigger setting, if you needn't this, just ignore it and get the res
 - `insertFile(file)`: insert file
 - `insertReply(reply)`: insert replay
 - `submit`: return the values and clear the box
+- `getValues`: `submit` will clear the box ,whitch behaver is not suitable for debug, this method only return the values.
 
 ## Full Example
 
