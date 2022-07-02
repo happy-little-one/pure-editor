@@ -1,6 +1,6 @@
 {
   "name": "pure-editor",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "a pure text editor for chat box or comment box or something like that",
   "main": "dist/index.js",
   "scripts": {

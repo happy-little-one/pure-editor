@@ -1,0 +1,8 @@
+node_modules
+src
+
+.gitignore
+index.html
+main.js
+vite.config.js
+tsconfig.json
