@@ -75,8 +75,8 @@ export default class Editor {
     const range = getRange()
     moveCursorToEnd(this.target)
     insertNode(range, node)
-    // you always need to insert a whitespace
-    // after insert a component to make the cursor visible again, I don't know why...
+    // need to insert a extra blank space after insert a component
+    // to make the cursor visible again, I don't know why...
     range.insertNode(document.createTextNode(' '))
   }
 

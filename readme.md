@@ -99,7 +99,7 @@ this submit trigger setting, if you needn't this, just ignore it and get the res
 
 #### at
 
-- `find(keyword: string): Promise<object[]>`: the fuzzy finding function of users, will be triggered when people input `@`. why is it aync? for users may be thousands. if you needn't this, just return a sync list. for example: `async find: () => [user1, user2]`.
+- `find(keyword: string): Promise<object[]>`: the fuzzy finding function of users, will be triggered when people input `@`. why is it asynchornous? for users may be thousands. if you needn't this, just return a synchornous list. for example: `async find: () => [user1, user2]`.
 
 - `render.list(): HTMLElement`: the float user list , PureEditor will set it's position be `fixed`, all you need is set it's style, be sure to give it a specific width, example: `width: 120px`.
 
@@ -195,6 +195,8 @@ reply.onclick = () => editor.insertReply({ type: 'reply', to: 'foo' })
 file.onclick = () => editor.insertFile({name: 'file.zip'})
 submit.onclick = () => console.log(editor.submit())
 ```
+
+> I konw it looks a little complecate, I recommed you implement features one by one, for example start with emoji, ofter you implement it, you will understand clearly the machanism.
 
 ## Attention
 
