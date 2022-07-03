@@ -2,7 +2,7 @@
 
 ![example](https://user-images.githubusercontent.com/13190639/176615872-9c2ec97f-a309-4665-b56a-47f7e7c090aa.png)
 
-PureEditor is pure text editor, 'pure' means the childNodes of the editor are only pure text and buildin components. so it is used for chat box, comment box or something like that.
+PureEditor is pure text editor, 'pure' means the editor only includes pure text and internal components. so it is used for chat box, comment box or something like that.
 
 - light-weight, only 200 lines code, without any dependences .
 
