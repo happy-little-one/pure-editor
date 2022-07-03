@@ -4,7 +4,7 @@
 
 PureEditor is pure text editor, 'pure' means the editor only includes pure text and internal components. so it is used for chat box, comment box or something like that.
 
-- light-weight, only 200 lines code, without any dependences .
+- light-weight, only 200 lines code, without any dependences.
 
 - fully featured, support @, user fuzzy finding, emoji, picture, file, link...
 
@@ -12,7 +12,7 @@ PureEditor is pure text editor, 'pure' means the editor only includes pure text 
 
 - 0 constraints, PureEditor has no contraints for data format, you can use it in any system without adaptation codes.
 
-this result of PureEditor is structured, fully-messaged array, you can translate it to anything you want(html, template string), this is a standard example:
+this result of PureEditor is a structured, fully-messaged array, you can translate it to anything you want(html, template string), this is a standard example:
 
 ```
 [
